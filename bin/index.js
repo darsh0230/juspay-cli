@@ -32,11 +32,7 @@ async function askProduct() {
 		name: 'product_select',
 		type: 'list',
 		message: 'Which Product are you integrating with?',
-		choices: [
-			'Hyper Checkout',
-			'Express Checkout SDK',
-			'Express Checkout API (Web)',
-		],
+		choices: ['Hyper Checkout', 'Express Checkout SDK'],
 	})
 
 	return answers.product_select
