@@ -8,7 +8,7 @@
 		"start": "node index.js"
 	},
 	"bin": {
-		"juspay": "./bin/index.js"
+		"juspay": "./index.js"
 	},
 	"keywords": [],
 	"author": "",
