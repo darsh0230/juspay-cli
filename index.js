@@ -5,8 +5,9 @@ import inquirer from 'inquirer'
 import gradient from 'gradient-string'
 import chalkAnimation from 'chalk-animation'
 import figlet from 'figlet'
+import { isAndroid, isIOS, isFlutter, isRNative } from './platformChecks.js'
 
-const sleep = (ms = 500) => new Promise((r) => setTimeout(r, ms))
+const sleep = (ms = 100) => new Promise((r) => setTimeout(r, ms))
 
 async function welcome() {
 	const heading = 'Juspay CLI'
@@ -41,38 +42,15 @@ async function askProduct() {
 	return answers.product_select
 }
 
-async function getPlatform() {
-	// Android
-	return 'android'
-	// iOS
-	return 'ios'
-	// Flutter
-	return 'flutter'
-	// React Native
-	return 'rnative'
-}
-
-async function install(platform) {
-	switch (platform) {
-		case 'android':
-			console.log('Android')
-			break
-		case 'ios':
-			console.log('iOS')
-			break
-		case 'flutter':
-			console.log('Flutter')
-			break
-		case 'rnative':
-			console.log('React Native')
-			break
-		default:
-			console.log('Please try in root directory')
-	}
+async function install() {
+	if (isAndroid()) return 'android'
+	else if (isIOS()) return 'ios'
+	else if (isFlutter()) return 'flutter'
+	else if (isRNative()) return 'rnative'
+	else return "You're not in the root directory of your project"
 }
 
 await welcome()
 const mid = await askMID()
 const product = await askProduct()
-const platform = await getPlatform()
-await install(platform)
+const platform = await install()
