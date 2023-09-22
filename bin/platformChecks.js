@@ -1,7 +1,17 @@
-export const isAndroid = () => {}
+import {readdirSync} from "fs";
 
-export const isIOS = () => {}
+export const isAndroid = () => {};
 
-export const isFlutter = () => {}
+export const isIOS = () => {};
 
-export const isRNative = () => {}
+export const isFlutter = () => {
+  var flag = false;
+  readdirSync(".").forEach((file) => {
+    if (file === "pubspec.yaml") {
+      flag = true;
+    }
+  })
+  return flag;
+};
+
+export const isRNative = () => {};
