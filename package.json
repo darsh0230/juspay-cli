@@ -1,0 +1,26 @@
+{
+	"name": "juspay-cli",
+	"version": "1.0.0",
+	"description": "Integrate Juspay from the Command Line",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"bin": {
+		"juspay": "./bin/index.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"boxen": "^7.1.1",
+		"chalk": "^5.3.0",
+		"chalk-animation": "^2.0.3",
+		"figlet": "^1.6.0",
+		"gradient-string": "^2.0.2",
+		"inquirer": "^9.2.11",
+		"nanospinner": "^1.1.0",
+		"yargs": "^17.7.2"
+	}
+}
