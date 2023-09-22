@@ -1,7 +1,7 @@
-export const androidInstaller = () => {};
+export const androidInstaller = () => {}
 
-export const iOSInstaller = () => {};
+export const iOSInstaller = () => {}
 
-export const flutterInstaller = () => {};
+export const flutterInstaller = () => {}
 
-export const rNativeInstaller = () => {};
+export const rNativeInstaller = () => {}
