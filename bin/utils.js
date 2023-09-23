@@ -1,3 +1,4 @@
+import { exec } from 'child_process'
 import fs from 'fs'
 
 export const addToPodfile = (filepath) => {
@@ -71,4 +72,18 @@ export const addToJSON = (filepath, key, value) => {
 	const finalData = JSON.stringify(fileData, null, 4)
 	fs.writeFileSync(filepath, finalData)
 	fs.close(0)
+}
+
+// flutter installer utils
+export function pubGetSDK(){
+	exec("flutter pub add hypersdkflutter", (error, stdout, stderr) => {
+		if (error) {
+			console.log(`error: ${error.message}`);
+			return;
+		}
+		if (stderr) {
+			console.log(`stderr: ${stderr}`);
+			return;
+		}
+	});
 }
