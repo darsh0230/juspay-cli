@@ -31,6 +31,7 @@ export const isFlutter = () => {
 }
 
 export const isRNative = () => {
+	// TODO: add more checks for react native
 	var flag = false
 	readdirSync('.').forEach((file) => {
 		if (file === 'package.json') {
