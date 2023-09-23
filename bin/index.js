@@ -28,7 +28,7 @@ async function welcome() {
 }
 
 async function getPlatform() {
-	const spinner = createSpinner('Analyzing the Project...').start()
+	const spinner = createSpinner('Analyzing the Project').start()
 	let platform
 	if (isAndroid()) platform = 'Android'
 	else if (isIOS()) platform = 'iOS'
@@ -43,10 +43,12 @@ async function getPlatform() {
 				200
 			)(platform)}`,
 		})
-	else
+	else {
 		spinner.error({
 			text: 'Please run this CLI in the root directory of your project',
 		})
+		process.exit()
+	}
 	return platform.toLowerCase() == 'react native'
 		? 'rnative'
 		: platform.toLowerCase()
@@ -62,15 +64,17 @@ async function askMID() {
 	return answers.MID.toLowerCase()
 }
 
-async function checkMid(mid) {
-	const url = `https://assets.juspay.in/hyper/bundles/in.juspay.merchants/${mid.toLowerCase()}/${
+async function checkMid(input) {
+	const url = `https://assets.juspay.in/hyper/bundles/in.juspay.merchants/${input.toLowerCase()}/${
 		platform == 'flutter' || platform == 'rnative' ? 'android' : platform
 	}/release/config.json`
 	try {
 		const res = await axios.get(url)
 		if (res.status == 200) return true
 	} catch (e) {}
-	return chalk.redBright.bold('Sorry, this Merchant ID is not valid')
+	return `${chalk.redBright.bold(
+		'Invalid Merchant ID'
+	)} (Make sure you're connected to the internet)`
 }
 
 async function askProduct() {
@@ -85,8 +89,7 @@ async function askProduct() {
 	return answers.product_select
 }
 
-async function install(mid, product) {
-	const spinner = createSpinner('Setting up your project...').start()
+function install(mid, product) {
 	switch (platform) {
 		case 'android':
 			androidInstaller(mid, product)
@@ -101,17 +104,14 @@ async function install(mid, product) {
 			rNativeInstaller(mid, product)
 			break
 		default:
-			spinner.success({
-				text:
-					chalk.redBright.bold('Caution: ') +
-					'Not in the root directory',
-			})
+			console.log(
+				chalk.redBright.bold('Caution: ') + 'Not in the root directory'
+			)
 	}
-	spinner.success({ text: 'Project set up successfully' })
 }
 
 await welcome()
 const platform = await getPlatform()
 const mid = await askMID()
 const product = await askProduct()
-await install(mid, product)
+install(mid, product)

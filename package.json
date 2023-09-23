@@ -8,7 +8,7 @@
 		"start": "node ./bin/index.js"
 	},
 	"bin": {
-		"juspay-cli": "./bin/index.js"
+		"juspay": "./bin/index.js"
 	},
 	"repository": {
     		"type": "git",
