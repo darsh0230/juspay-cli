@@ -1,42 +1,32 @@
-import { readdirSync } from 'fs'
+import { readFileSync, existsSync } from "fs"
 
 export const isAndroid = () => {
-	var flag = false
-	readdirSync('.').forEach((file) => {
-		if (file === 'build.gradle') {
-			flag = true
-		}
-	})
-	return flag
+  if (existsSync("build.gradle")) {
+    return true
+  }
+  return false
 }
 
 export const isIOS = () => {
-	var flag = false
-	readdirSync('.').forEach((file) => {
-		if (file === 'Podfile') {
-			flag = true
-		}
-	})
-	return flag
+  if (existsSync("Podfile")) {
+    return true
+  }
+  return false
 }
 
 export const isFlutter = () => {
-	var flag = false
-	readdirSync('.').forEach((file) => {
-		if (file === 'pubspec.yaml') {
-			flag = true
-		}
-	})
-	return flag
+  if (existsSync("pubspec.yaml")) {
+    return true
+  }
+  return false
 }
 
 export const isRNative = () => {
-	// TODO: add more checks for react native
-	var flag = false
-	readdirSync('.').forEach((file) => {
-		if (file === 'package.json') {
-			flag = true
-		}
-	})
-	return flag
+  if (
+    existsSync("package.json") &&
+    String(readFileSync("package.json")).includes("react-native")
+  ) {
+    return true
+  }
+  return false
 }

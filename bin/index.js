@@ -111,7 +111,12 @@ function install(mid, product) {
 }
 
 await welcome()
+console.log(
+  chalk.yellowBright.bold(
+    "\nNOTE : This is an Unofficial CLI made to setup juspay sdk in you project\n"
+  )
+)
 const platform = await getPlatform()
-const mid = await askMID()
-const product = await askProduct()
-install(mid, product)
+// const mid = await askMID()
+// const product = await askProduct()
+// install(mid, product)
