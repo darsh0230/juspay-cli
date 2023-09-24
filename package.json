@@ -1,6 +1,6 @@
 {
     "name": "juspay-cli",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Integrate Juspay from the Command Line",
     "main": "./bin/index.js",
     "type": "module",
