@@ -8,14 +8,17 @@ import {
   flutterAddToGradle,
   flutterAddToPodfile,
   pubGetSDK,
+  androidAddToGradle,
 } from "./utils.js"
 import chalk from "chalk"
 
-export const androidInstaller = () => {
+export const androidInstaller = (mid) => {
   const paths = {
-    "build.gradle": "./android/build.gradle",
-    "app.build.gradle": "./android/app/build.gradle",
+    "build.gradle": "./build.gradle",
+    "app.build.gradle": "./app/build.gradle",
   }
+
+  androidAddToGradle(paths, mid)
 }
 
 export const iOSInstaller = () => {}

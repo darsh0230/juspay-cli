@@ -114,3 +114,39 @@ export function flutterAddToPodfile(filePath) {
     fs.writeFileSync(filePath, finalData)
   }
 }
+
+// android
+export const androidAddToGradle = (paths, mid) => {
+  let pGradle = String(fs.readFileSync(paths["build.gradle"]))
+  let aGradle = String(fs.readFileSync(paths["app.build.gradle"]))
+  var script = ""
+
+  // Step 1.1a & 1.1b & 1.2a
+  if (!pGradle.includes("buildscript")) {
+    script = `buildscript {\n\trepositories {\n\t\tmaven { url "https://maven.juspay.in/jp-build-packages/hyper-sdk/" }\n\t}\n\tdependencies {\n\t\tclasspath 'in.juspay:hypersdk.plugin:2.0.4'\n\t}\n}`
+    let script2 = `\n\nallprojects {\n\trepositories {\n\t\tmaven {url "https://maven.juspay.in/jp-build-packages/hyper-sdk/"}\n\t}\n}\n\n`
+    pGradle = script + script2 + pGradle
+  } else {
+    // TODO: Add the logic for older version
+    // console.log("You are using an old version...")
+  }
+
+  // Step 1.1c & 1.2a
+  if (!aGradle.includes("hypersdk.plugin")) {
+    const identifier = "id 'com.android.application'"
+    script = "\n\tid 'hypersdk.plugin'"
+
+    const index = aGradle.indexOf(identifier) + identifier.length
+    const startData = aGradle.substring(0, index)
+    const endData = aGradle.substring(index, aGradle.length)
+
+    aGradle = "".concat(startData, script, endData)
+
+    script = `\n\nhyperSdkPlugin {\n\tclientId = "${mid}"\n\tsdkVersion = "2.1.13"\n}`
+    aGradle += script
+  }
+
+  // write to files
+  fs.writeFileSync(paths["build.gradle"], pGradle)
+  fs.writeFileSync(paths["app.build.gradle"], aGradle)
+}
