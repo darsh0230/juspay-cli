@@ -18,7 +18,16 @@ export const androidInstaller = (mid) => {
     "app.build.gradle": "./app/build.gradle",
   }
 
+  const spinner = createSpinner("Setting up your project").start()
+
   androidAddToGradle(paths, mid)
+
+  // success
+  spinner.success({
+    text: chalk.greenBright.bold(
+      "Your project has been set up and ready to go 🎉"
+    ),
+  })
 }
 
 export const iOSInstaller = () => {}
